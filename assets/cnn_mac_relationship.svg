@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">CNN 합성곱과 MAC의 관계</title>
+  <desc id="desc">CNN이 입력 위에서 필터를 이동시키며 각 위치에서 MAC 점수를 계산하고 특징 맵을 만드는 과정</desc>
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="1.5"/>
+    </pattern>
+    <pattern id="featureGrid" width="52" height="52" patternUnits="userSpaceOnUse">
+      <rect width="52" height="52" fill="#ede9fe" stroke="#a78bfa" stroke-width="1.5"/>
+    </pattern>
+    <style>
+      .title { font: 700 28px 'Malgun Gothic', 'Noto Sans KR', sans-serif; fill: #0f172a; }
+      .label { font: 700 20px 'Malgun Gothic', 'Noto Sans KR', sans-serif; fill: #1e293b; text-anchor: middle; }
+      .body { font: 16px 'Malgun Gothic', 'Noto Sans KR', sans-serif; fill: #334155; }
+      .small { font: 15px 'Malgun Gothic', 'Noto Sans KR', sans-serif; fill: #475569; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect width="1200" height="500" rx="22" fill="#f8fafc"/>
+  <text x="48" y="52" class="title">CNN 합성곱에서 MAC이 사용되는 위치</text>
+  <text x="48" y="82" class="body">필터가 입력 위를 이동하고 각 위치에서 MAC 점수 하나를 계산하면 점수들이 특징 맵을 이룹니다.</text>
+
+  <text x="175" y="128" class="label">입력 이미지 또는 특징 맵</text>
+  <rect x="75" y="150" width="200" height="200" rx="7" fill="url(#grid)" stroke="#0284c7" stroke-width="3"/>
+  <rect x="75" y="150" width="120" height="120" fill="#fef08a" fill-opacity="0.7" stroke="#eab308" stroke-width="4"/>
+  <text x="135" y="290" class="small">현재 3×3 입력 영역</text>
+  <path d="M95 375 C125 405 225 405 255 375" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <text x="175" y="430" class="small">필터를 오른쪽과 아래로 이동</text>
+
+  <line x1="300" y1="250" x2="370" y2="250" stroke="#334155" stroke-width="3" marker-end="url(#arrow2)"/>
+  <text x="335" y="225" class="small">겹치기</text>
+
+  <text x="445" y="128" class="label">3×3 필터</text>
+  <g transform="translate(385 170)">
+    <rect width="120" height="120" rx="7" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
+    <path d="M40 0V120 M80 0V120 M0 40H120 M0 80H120" stroke="#86efac" stroke-width="2"/>
+    <path d="M60 8V112 M8 60H112" stroke="#16a34a" stroke-width="14" stroke-linecap="round" opacity="0.75"/>
+  </g>
+  <text x="445" y="326" class="small">찾고 싶은 특징의 가중치</text>
+
+  <line x1="525" y1="250" x2="605" y2="250" stroke="#334155" stroke-width="3" marker-end="url(#arrow2)"/>
+
+  <g transform="translate(625 170)">
+    <rect width="190" height="150" rx="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+    <text x="95" y="38" class="label">MAC 한 번</text>
+    <text x="95" y="78" class="small">9회 곱셈과 누적</text>
+    <text x="95" y="112" style="font:700 30px Consolas,monospace;fill:#b45309;text-anchor:middle">Σ P × F</text>
+    <text x="95" y="137" class="small">특징 점수 1개</text>
+  </g>
+
+  <line x1="835" y1="250" x2="905" y2="250" stroke="#334155" stroke-width="3" marker-end="url(#arrow2)"/>
+  <text x="870" y="225" class="small">위치별 저장</text>
+
+  <text x="1030" y="128" class="label">3×3 특징 맵</text>
+  <rect x="952" y="172" width="156" height="156" rx="8" fill="url(#featureGrid)" stroke="#8b5cf6" stroke-width="3"/>
+  <circle cx="978" cy="198" r="13" fill="#6d28d9"/>
+  <text x="1030" y="365" class="small">각 칸은 한 위치의 MAC 점수</text>
+
+  <rect x="375" y="395" width="470" height="66" rx="12" fill="#e2e8f0"/>
+  <text x="610" y="423" class="label">Mini NPU Simulator의 범위</text>
+  <text x="610" y="448" class="small">필터를 이동하지 않고 위 과정의 한 위치 MAC 점수를 계산</text>
+</svg>
